@@ -1,3 +1,5 @@
+//app/api/proxy.ts
+
 import { NextRequest, NextResponse } from 'next/server';
 
 const BACKEND = process.env.BACKEND_URL || 'http://localhost:3001';
