@@ -1,3 +1,5 @@
+//app/api/pharmacy/[...path]/route.ts
+
 import { NextRequest } from 'next/server';
 import { proxyToBackend } from '../../proxy';
 

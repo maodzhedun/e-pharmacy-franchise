@@ -27,7 +27,7 @@ export default function RegisterForm() {
   const onSubmit = async (data: FormData) => {
     try {
       const res: any = await registerUser(data);
-      setAuth(res.user, res.token);
+      setAuth(res.user, "");
       toast.success("Registered successfully!");
       router.push("/create-shop");
     } catch (e: any) {

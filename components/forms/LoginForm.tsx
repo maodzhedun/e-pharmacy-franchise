@@ -25,7 +25,7 @@ export default function LoginForm() {
   const onSubmit = async (data: FormData) => {
     try {
       const res: any = await loginUser(data);
-      setAuth(res.user, res.token);
+      setAuth(res.user, "");
       toast.success("Logged in!");
       router.push("/shop");
     } catch (e: any) {

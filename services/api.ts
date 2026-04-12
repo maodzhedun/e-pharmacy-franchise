@@ -1,3 +1,5 @@
+//services/api.ts
+
 async function request<T>(url: string, options: RequestInit = {}): Promise<T> {
   const res = await fetch(`/api${url}`, {
     credentials: 'include',
