@@ -14,7 +14,6 @@ import type { Product } from "@/types";
 interface Props {
   open: boolean;
   product: Product | null;
-  shopId: string;
   onClose: () => void;
   onSuccess: () => void;
 }
@@ -27,7 +26,6 @@ interface FormData {
 export default function EditMedicineModal({
   open,
   product,
-  shopId,
   onClose,
   onSuccess,
 }: Props) {
@@ -56,7 +54,7 @@ export default function EditMedicineModal({
       fd.append("price", data.price);
       fd.append("description", data.description);
       if (file) fd.append("photo", file);
-      await editProduct(shopId, product._id, fd);
+      await editProduct(product._id, fd);
       toast.success("Medicine updated!");
       setFile(null);
       onSuccess();

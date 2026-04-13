@@ -13,7 +13,6 @@ import toast from "react-hot-toast";
 interface Props {
   open: boolean;
   onClose: () => void;
-  shopId: string;
   onSuccess: () => void;
 }
 interface FormData {
@@ -22,12 +21,7 @@ interface FormData {
   description: string;
 }
 
-export default function AddMedicineModal({
-  open,
-  onClose,
-  shopId,
-  onSuccess,
-}: Props) {
+export default function AddMedicineModal({ open, onClose, onSuccess }: Props) {
   const {
     register,
     handleSubmit,
@@ -46,7 +40,7 @@ export default function AddMedicineModal({
       fd.append("suppliers", "Unknown");
       fd.append("stock", "0");
       if (file) fd.append("photo", file);
-      await addProduct(shopId, fd);
+      await addProduct(fd);
       toast.success("Medicine added!");
       reset();
       setFile(null);

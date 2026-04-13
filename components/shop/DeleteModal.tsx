@@ -11,7 +11,6 @@ import type { Product } from "@/types";
 interface Props {
   open: boolean;
   product: Product | null;
-  shopId: string;
   onClose: () => void;
   onSuccess: () => void;
 }
@@ -19,7 +18,6 @@ interface Props {
 export default function DeleteModal({
   open,
   product,
-  shopId,
   onClose,
   onSuccess,
 }: Props) {
@@ -29,7 +27,7 @@ export default function DeleteModal({
     if (!product) return;
     setLoading(true);
     try {
-      await deleteProduct(shopId, product._id);
+      await deleteProduct(product._id);
       toast.success("Product deleted");
       onSuccess();
       onClose();

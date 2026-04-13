@@ -24,7 +24,7 @@ type Tab = "drugstore" | "all";
 
 export default function ShopPage() {
   const router = useRouter();
-  const [shop, setShop] = useState<(Shop & { _id: string }) | null>(null);
+  const [shop, setShop] = useState<Shop | null>(null);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState<Tab>("drugstore");
 
@@ -59,10 +59,7 @@ export default function ShopPage() {
 
   const fetchOwn = useCallback(async () => {
     if (!shop) return;
-    const res: any = await getShopProducts(
-      shop._id,
-      `page=${ownPage}&limit=12`,
-    );
+    const res: any = await getShopProducts(`page=${ownPage}&limit=12`);
     setOwnProducts(res.products);
     setOwnTotal(res.totalPages || 1);
   }, [shop, ownPage]);
@@ -72,7 +69,7 @@ export default function ShopPage() {
     const params = new URLSearchParams({ page: String(allPage), limit: "12" });
     if (filterCategory) params.set("category", filterCategory);
     if (filterName) params.set("name", filterName);
-    const res: any = await getAllMedicine(shop._id, params.toString());
+    const res: any = await getAllMedicine(params.toString());
     setAllProducts(res.products);
     setAllTotal(res.totalPages || 1);
     if (res.categories) setCategories(res.categories);
@@ -93,9 +90,8 @@ export default function ShopPage() {
     fetchAll();
   };
   const handleAddToShop = async (id: string) => {
-    if (!shop) return;
     try {
-      await addToShop(shop._id, id);
+      await addToShop(id);
       toast.success("Added to shop!");
       fetchOwn();
     } catch (e: any) {
@@ -211,20 +207,17 @@ export default function ShopPage() {
       <AddMedicineModal
         open={addOpen}
         onClose={() => setAddOpen(false)}
-        shopId={shop._id}
         onSuccess={fetchOwn}
       />
       <EditMedicineModal
         open={!!editProd}
         product={editProd}
-        shopId={shop._id}
         onClose={() => setEditProd(null)}
         onSuccess={fetchOwn}
       />
       <DeleteModal
         open={!!deleteProd}
         product={deleteProd}
-        shopId={shop._id}
         onClose={() => setDeleteProd(null)}
         onSuccess={fetchOwn}
       />

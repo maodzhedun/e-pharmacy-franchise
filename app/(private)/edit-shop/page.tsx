@@ -58,8 +58,7 @@ export default function EditShopPage() {
       const fd = new FormData();
       Object.entries(data).forEach(([k, v]) => fd.append(k, v));
       fd.append("hasDelivery", String(hasDelivery));
-      const shopData: any = await getMyShop();
-      await updateShop(shopData._id, fd);
+      await updateShop(fd);
       toast.success("Shop updated!");
       router.push("/shop");
     } catch (e: any) {
