@@ -18,6 +18,7 @@ import {
   addToShop,
 } from "@/services/api";
 import toast from "react-hot-toast";
+import Icon from "@/components/ui/Icon";
 import type { Shop, Product } from "@/types";
 
 type Tab = "drugstore" | "all";
@@ -113,8 +114,26 @@ export default function ShopPage() {
             <span>
               Owner: <strong className="text-text">{shop.owner}</strong>
             </span>
-            <span>&#9737; {shop.address}</span>
-            <span>&#9742; {shop.phone}</span>
+            <span>
+              <>
+                <Icon
+                  id="icon-location"
+                  size={14}
+                  className="inline text-primary"
+                />{" "}
+                {shop.address}
+              </>
+            </span>
+            <span>
+              <>
+                <Icon
+                  id="icon-phone"
+                  size={14}
+                  className="inline text-primary"
+                />{" "}
+                {shop.phone}
+              </>
+            </span>
           </div>
         </div>
         <div className="flex gap-2">
@@ -180,7 +199,7 @@ export default function ShopPage() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {(tab === "drugstore" ? ownProducts : allProducts).map((p) => (
           <ProductCard
             key={p._id}

@@ -11,6 +11,20 @@ import { editProduct } from "@/services/api";
 import toast from "react-hot-toast";
 import type { Product } from "@/types";
 
+const CATEGORIES = [
+  "Medicine",
+  "Head",
+  "Hand",
+  "Heart",
+  "Leg",
+  "Dental Care",
+  "Skin Care",
+  "Eye Care",
+  "Vitamins & Supplements",
+  "Orthopedic Products",
+  "Baby Care",
+];
+
 interface Props {
   open: boolean;
   product: Product | null;
@@ -21,6 +35,7 @@ interface FormData {
   name: string;
   price: string;
   description: string;
+  category: string;
 }
 
 export default function EditMedicineModal({
@@ -43,6 +58,7 @@ export default function EditMedicineModal({
         name: product.name,
         price: product.price,
         description: product.description || "",
+        category: product.category || "Medicine",
       });
   }, [product, reset]);
 
@@ -53,9 +69,10 @@ export default function EditMedicineModal({
       fd.append("name", data.name);
       fd.append("price", data.price);
       fd.append("description", data.description);
+      fd.append("category", data.category);
       if (file) fd.append("photo", file);
       await editProduct(product._id, fd);
-      toast.success("Medicine updated!");
+      toast.success("Product updated!");
       setFile(null);
       onSuccess();
       onClose();
@@ -66,7 +83,9 @@ export default function EditMedicineModal({
 
   return (
     <Modal open={open} onClose={onClose}>
-      <h2 className="mb-6 text-center text-xl font-bold">Edit medicine</h2>
+      <h2 className="mb-6 text-center text-xl font-bold">
+        Edit Product Details
+      </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <div className="mx-auto flex h-[120px] w-[140px] items-center justify-center rounded-2xl border border-primary/30 bg-primary-10 overflow-hidden">
           {file ? (
@@ -86,7 +105,7 @@ export default function EditMedicineModal({
           )}
         </div>
         <label className="mx-auto flex cursor-pointer items-center gap-1 text-xs text-gray underline">
-          <span>&#128206;</span> Change image
+          Change Image
           <input
             type="file"
             accept="image/*"
@@ -106,10 +125,24 @@ export default function EditMedicineModal({
             error={errors.price?.message}
           />
         </div>
+        {/* Category dropdown — за вимогою ТЗ */}
+        <div className="flex flex-col gap-1">
+          <label className="text-xs font-semibold text-text">Category</label>
+          <select
+            {...register("category")}
+            className="w-full rounded-full border border-border bg-white px-4 py-3 text-sm text-text outline-none focus:border-primary"
+          >
+            {CATEGORIES.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+        </div>
         <Textarea label="Description" {...register("description")} />
         <div className="flex gap-3">
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Saving..." : "Save medicine"}
+            {isSubmitting ? "Saving..." : "Save Changes"}
           </Button>
           <Button type="button" variant="ghost" onClick={onClose}>
             Cancel

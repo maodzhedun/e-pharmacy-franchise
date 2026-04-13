@@ -1,19 +1,26 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@config "../tailwind.config.js";
 
-@theme {
-  --color-primary: #59B17A;
-  --color-primary-10: rgba(89, 177, 122, 0.1);
-  --color-bg: #F7F8FA;
-  --color-text: #1D1E21;
-  --color-white: #FFFFFF;
-  --color-gray: #93939A;
-  --color-border: #E0E0E0;
-  --color-error: #E85050;
-  --color-income: #59B17A;
-  --color-expense: #E85050;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+@source "../components/**/*.{js,ts,jsx,tsx}";
+@source "../app/**/*.{js,ts,jsx,tsx}";
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background-color: var(--color-bg); }
-input[type="radio"] { accent-color: var(--color-primary); width: 18px; height: 18px; }
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: #F7F8FA;
+  -webkit-font-smoothing: antialiased;
+}
+
+input[type="radio"] {
+  accent-color: #59B17A;
+  width: 18px;
+  height: 18px;
+}

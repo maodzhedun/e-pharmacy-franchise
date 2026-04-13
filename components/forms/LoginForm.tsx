@@ -33,57 +33,59 @@ export default function LoginForm() {
     }
   };
 
-  const inputClass =
-    "h-[40px] w-full rounded-full border border-border bg-white px-4 text-xs text-text outline-none transition-colors placeholder:text-gray focus:border-primary sm:h-[44px] sm:px-5 sm:text-sm md:h-[46px]";
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 sm:space-y-4">
-      <div>
-        <input
-          {...register("email", { required: "Email is required" })}
-          type="email"
-          placeholder="Email address"
-          className={inputClass}
-        />
-        {errors.email && (
-          <p className="mt-1 pl-4 text-xs text-expense">
-            {errors.email.message}
-          </p>
-        )}
-      </div>
-      <div>
-        <input
-          {...register("password", {
-            required: "Password is required",
-            minLength: { value: 6, message: "Min 6 chars" },
-          })}
-          type="password"
-          placeholder="Password"
-          className={inputClass}
-        />
-        {errors.password && (
-          <p className="mt-1 pl-4 text-xs text-expense">
-            {errors.password.message}
-          </p>
-        )}
-      </div>
-      <div className="pt-1 sm:pt-2 md:pt-4">
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="h-[40px] w-full rounded-full bg-primary text-xs font-semibold text-white transition-colors hover:bg-primary/90 disabled:opacity-50 sm:h-[44px] sm:text-sm md:h-[46px] md:text-base"
-        >
-          {isSubmitting ? "Logging in..." : "Log in"}
-        </button>
-      </div>
-      <p className="text-center text-xs text-gray sm:text-sm">
-        <Link
-          href="/register"
-          className="text-gray no-underline hover:text-primary transition-colors"
-        >
-          Don&apos;t have an account?
-        </Link>
-      </p>
-    </form>
+    <div className="w-full md:max-w-[300px] lg:w-[323px]">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-3 sm:space-y-4"
+      >
+        <div>
+          <input
+            {...register("email", { required: "Email is required" })}
+            type="email"
+            placeholder="Email address"
+            className="h-[40px] w-full rounded-full border border-border bg-white px-4 text-xs text-text outline-none transition-colors placeholder:text-text-light focus:border-primary sm:h-[44px] sm:px-5 sm:text-sm md:h-[46px]"
+          />
+          {errors.email && (
+            <p className="mt-1 pl-4 text-xs text-danger">
+              {errors.email.message}
+            </p>
+          )}
+        </div>
+        <div>
+          <input
+            {...register("password", {
+              required: "Password is required",
+              minLength: { value: 6, message: "Min 6 chars" },
+            })}
+            type="password"
+            placeholder="Password"
+            className="h-[40px] w-full rounded-full border border-border bg-white px-4 text-xs text-text outline-none transition-colors placeholder:text-text-light focus:border-primary sm:h-[44px] sm:px-5 sm:text-sm md:h-[46px]"
+          />
+          {errors.password && (
+            <p className="mt-1 pl-4 text-xs text-danger">
+              {errors.password.message}
+            </p>
+          )}
+        </div>
+        <div className="pt-1 sm:pt-2 md:pt-4">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="h-[40px] w-full rounded-full bg-primary text-xs font-semibold text-white transition-colors hover:bg-primary-dark disabled:opacity-50 sm:h-[44px] sm:text-sm md:h-[46px] md:text-base"
+          >
+            {isSubmitting ? "Logging in..." : "Log in"}
+          </button>
+        </div>
+        <p className="text-center text-xs text-text-light sm:text-sm">
+          <Link
+            href="/register"
+            className="text-text-light no-underline hover:text-primary transition-colors"
+          >
+            Don&apos;t have an account?
+          </Link>
+        </p>
+      </form>
+    </div>
   );
 }

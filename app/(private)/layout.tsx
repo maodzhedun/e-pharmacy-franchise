@@ -47,7 +47,7 @@ export default function PrivateLayout({
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1 mx-auto w-full max-w-[1440px] px-5 py-6 md:px-8 md:py-10 xl:px-[100px]">
+      <main className="flex-1 mx-auto w-full max-w-[1440px] px-5 py-6 md:px-8 md:py-10 lg:px-[100px]">
         {children}
       </main>
       <Footer />

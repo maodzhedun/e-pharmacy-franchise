@@ -69,8 +69,8 @@ export default function EditShopPage() {
   if (loading) return <Loader />;
 
   return (
-    <div className="flex flex-col gap-8 xl:flex-row xl:gap-12">
-      <div className="rounded-3xl bg-white p-6 md:p-10 xl:flex-1">
+    <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
+      <div className="rounded-3xl bg-white p-6 md:p-10 lg:flex-1">
         <h1 className="mb-2 text-2xl font-bold text-text md:text-3xl">
           Edit data
         </h1>
@@ -149,7 +149,7 @@ export default function EditShopPage() {
           </Button>
         </form>
       </div>
-      <div className="hidden xl:block xl:w-[400px]">
+      <div className="hidden lg:block lg:w-[400px]">
         <div className="h-[500px] w-full rounded-3xl bg-gray-200" />
       </div>
     </div>

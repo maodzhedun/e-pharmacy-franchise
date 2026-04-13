@@ -38,7 +38,7 @@ export default function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 bg-white shadow-sm">
-        <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-5 md:px-8 xl:px-[100px]">
+        <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-5 md:px-8 lg:px-[100px]">
           <Logo href={isLoggedIn ? '/shop' : '/register'} />
 
           {isLoggedIn && (

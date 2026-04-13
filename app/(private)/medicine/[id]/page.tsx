@@ -6,8 +6,9 @@ import { clsx } from "clsx";
 import Button from "@/components/ui/Button";
 import Loader from "@/components/ui/Loader";
 import Pagination from "@/components/ui/Pagination";
-import { getMyShop, getProductDetail, addToShop } from "@/services/api";
+import { getProductDetail, addToShop } from "@/services/api";
 import toast from "react-hot-toast";
+import Icon from "@/components/ui/Icon";
 import type { Product, Review } from "@/types";
 
 type Tab = "description" | "reviews";
@@ -18,7 +19,6 @@ export default function MedicinePage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = use(params);
-  const [shopId, setShopId] = useState<string>("");
   const [product, setProduct] = useState<Product | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [tab, setTab] = useState<Tab>("description");
@@ -26,35 +26,23 @@ export default function MedicinePage({
   const [reviewTotalPages, setReviewTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    getMyShop().then((s: any) => {
-      if (s?._id) setShopId(s._id);
-    });
-  }, []);
-
   const fetchData = useCallback(async () => {
-    if (!shopId) return;
     try {
-      const res: any = await getProductDetail(
-        shopId,
-        id,
-        `page=${reviewPage}&limit=3`,
-      );
+      const res: any = await getProductDetail(id, `page=${reviewPage}&limit=3`);
       setProduct(res.product);
       setReviews(res.reviews);
       setReviewTotalPages(res.reviewTotalPages || 1);
     } catch {}
     setLoading(false);
-  }, [shopId, id, reviewPage]);
+  }, [id, reviewPage]);
 
   useEffect(() => {
-    if (shopId) fetchData();
-  }, [fetchData, shopId]);
+    fetchData();
+  }, [fetchData]);
 
   const handleAdd = async () => {
-    if (!shopId) return;
     try {
-      await addToShop(shopId, id);
+      await addToShop(id);
       toast.success("Added to shop!");
     } catch (e: any) {
       toast.error(e.message);
@@ -66,8 +54,8 @@ export default function MedicinePage({
     return <p className="py-12 text-center text-gray">Product not found</p>;
 
   return (
-    <div className="flex flex-col gap-6 xl:flex-row xl:gap-10">
-      <div className="w-full xl:w-[380px]">
+    <div className="flex flex-col gap-6 lg:flex-row lg:gap-10">
+      <div className="w-full lg:w-[380px]">
         <div className="mb-4 flex h-[280px] items-center justify-center rounded-2xl border border-primary/20 bg-primary-10 p-4 md:h-[340px]">
           {product.photo ? (
             <img
@@ -141,7 +129,27 @@ export default function MedicinePage({
               <div className="flex flex-col gap-4">
                 {reviews.map((r) => (
                   <div key={r._id} className="rounded-xl bg-bg p-4">
-                    <p className="font-semibold text-text">{r.name}</p>
+                    <div className="flex items-center gap-2">
+                      <p className="font-semibold text-text">{r.name}</p>
+                      <div className="flex gap-0.5">
+                        {[1, 2, 3, 4, 5].map((s) => (
+                          <Icon
+                            key={s}
+                            id={
+                              s <= (r.rating || 0)
+                                ? "icon-star"
+                                : "icon-star-empty"
+                            }
+                            size={14}
+                            className={
+                              s <= (r.rating || 0)
+                                ? "text-yellow-400"
+                                : "text-gray-300"
+                            }
+                          />
+                        ))}
+                      </div>
+                    </div>
                     <p className="mb-2 text-xs text-gray">
                       {new Date(r.createdAt).toLocaleDateString("en-US", {
                         day: "numeric",
