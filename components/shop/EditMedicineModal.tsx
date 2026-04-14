@@ -87,7 +87,7 @@ export default function EditMedicineModal({
         Edit Product Details
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        <div className="mx-auto flex h-[120px] w-[140px] items-center justify-center rounded-2xl border border-primary/30 bg-primary-10 overflow-hidden">
+        <div className="mx-auto flex h-[178px] w-[178px] items-center justify-center overflow-hidden rounded-2xl">
           {file ? (
             <img
               src={URL.createObjectURL(file)}
@@ -101,7 +101,11 @@ export default function EditMedicineModal({
               className="h-full w-full object-contain p-2"
             />
           ) : (
-            <span className="text-4xl text-primary/40">&#128138;</span>
+            <img
+              src="/images/pills.png"
+              alt="pills"
+              className="h-full w-full scale-105 object-contain"
+            />
           )}
         </div>
         <label className="mx-auto flex cursor-pointer items-center gap-1 text-xs text-gray underline">
